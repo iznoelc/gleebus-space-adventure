@@ -1,8 +1,10 @@
 package Level_1;
 
+import javax.swing.*;
+
 public class N implements Command{
     @Override
-    public void execute(Map map) {
-        System.out.println(map.update("north"));
+    public String execute(Map map) {
+        return map.update("north");
     }
 }

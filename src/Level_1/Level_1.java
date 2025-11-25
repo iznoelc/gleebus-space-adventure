@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class Level_1 extends JPanel {
     private Game parent;
+    private JTextArea statusArea;
 
     //constructor
     public Level_1(Game parent) {
@@ -32,9 +33,25 @@ public class Level_1 extends JPanel {
         //center
         GleebusLabel.setHorizontalAlignment(JLabel.CENTER);
         GleebusLabel.setVerticalAlignment(JLabel.CENTER);
-        //draw it
-        add(GleebusLabel, BorderLayout.CENTER);
+
+        //add text
+        statusArea = new JTextArea(5, 50);
+        statusArea.setEditable(false);
+        statusArea.setBorder(BorderFactory.createTitledBorder("Ship Signal"));
+        JScrollPane scrollPane = new JScrollPane(statusArea);
+        add(scrollPane, BorderLayout.PAGE_END);
+
+        //make a container for both
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BorderLayout());
+        centerPanel.add(GleebusLabel, BorderLayout.CENTER);
+        centerPanel.add(scrollPane, BorderLayout.SOUTH);
+
+        //add to main panel
+        add(centerPanel, BorderLayout.CENTER);
     }
+
+
 
 
 
@@ -93,6 +110,12 @@ public class Level_1 extends JPanel {
 
         //finalize and activate trigger based on action listener
         invoker.setCommand(command);
-        imageButton.addActionListener(e -> invoker.executeCommand(map));
+        invoker.setCommand(command);
+        imageButton.addActionListener(e -> {
+            String result = invoker.executeCommand(map);
+            if (statusArea != null) {
+                statusArea.append(result + "\n");
+            }
+        });
     }
 }

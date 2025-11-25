@@ -39,15 +39,15 @@ public class Map {
                 break;
             case "east":
                 if (player_position[0] < max)
-                {player_position[0]+=1;}else {return "Gleebus is too far west, he's no longer getting a status signal from his ship!";}
+                {player_position[0]+=1;}else {return "Gleebus is too far east, he's no longer getting a status signal from his ship!";}
                 break;
             case "north":
                 if (player_position[1] > 0)
-                {player_position[1]-=1;}else {return "Gleebus is too far west, he's no longer getting a status signal from his ship!";}
+                {player_position[1]-=1;}else {return "Gleebus is too far north, he's no longer getting a status signal from his ship!";}
                 break;
             case "south":
                 if (player_position[1] < max)
-                {player_position[1]+=1;}else {return "Gleebus is too far west, he's no longer getting a status signal from his ship!";}
+                {player_position[1]+=1;}else {return "Gleebus is too far south, he's no longer getting a status signal from his ship!";}
                 break;
         }
 

@@ -2,7 +2,7 @@ package Level_1;
 
 public class E implements Command{
     @Override
-    public void execute(Map map) {
-        System.out.println(map.update("east"));
+    public String execute(Map map) {
+        return map.update("east");
     }
 }
