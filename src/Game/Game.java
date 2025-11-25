@@ -26,10 +26,10 @@ public class Game extends JFrame {
 
         JPanel startCard = new Start(this);
         JPanel backstoryCard = new Backstory(this);
-        JPanel level1 = new Level_1();
-        JPanel level2 = new Level_2();
+        JPanel level1 = new Level_1(this);
+        JPanel level2 = new Level_2(this);
         JPanel level3 = new Level_3(this);
-        JPanel level4 = new Level_4();
+        JPanel level4 = new Level_4(this);
         JPanel endCard = new End();
 
         cards = new JPanel(cardLayout);
@@ -43,7 +43,7 @@ public class Game extends JFrame {
 
         // FOR TESTING ->
         // change "Level3" to WHICHEVER LEVEL YOU WANT TO TEST
-        cardLayout.show(cards, "Start");
+        cardLayout.show(cards, "Level1");
 
 //        // Output area at bottom
 //        output_area = new JTextArea(5, 50);
