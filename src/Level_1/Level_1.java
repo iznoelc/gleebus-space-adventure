@@ -13,25 +13,30 @@ public class Level_1 extends JPanel {
         this.parent = parent;
         setLayout(new BorderLayout());
 
+        //make map
+        Map map = new Map(10);
+
+
         //button setup
-        addButton("P1_NorthArrow", "up","N");
-        addButton("P1_SouthArrow", "down","S");
-        addButton("P1_EastArrow", "right","E");
-        addButton("P1_WestArrow", "left","W");
+        addButton("P1_NorthArrow", "up","N", map);
+        addButton("P1_SouthArrow", "down","S", map);
+        addButton("P1_EastArrow", "right","E", map);
+        addButton("P1_WestArrow", "left","W", map);
     }
 
     //helper method
-    public void addButton(String image,  String position, String debug_message){
+    public void addButton(String image,  String position, String debug_message, Map map){
+        Invoker invoker = new Invoker();
+        Command command = null;
         //make button
         ImageIcon myImage = new ImageIcon("src/Images/Puzzle1/" + image + ".png");
-        // Rescale the image to 50x50 pixels
+        // rescale image
         Image scaledImage = myImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
-// Wrap the scaled image back into an ImageIcon
+        // Wrap the scaled image back into an ImageIcon
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         JButton imageButton = new JButton(scaledIcon);
 
-        imageButton.addActionListener(e -> System.out.println(debug_message));
         //define side for positioning
         JPanel Side = new JPanel();
         //adds padding to the side
@@ -56,6 +61,8 @@ public class Level_1 extends JPanel {
             //position relative to screen side
             if(position.equals("up")){
                 add(Side, BorderLayout.NORTH);
+                command = new N();
+
             } else{
                 add(Side, BorderLayout.SOUTH);
             }
@@ -64,5 +71,8 @@ public class Level_1 extends JPanel {
             System.out.println("Error: Invalid Input");
             return;
         }
+        invoker.setCommand(command);
+        imageButton.addActionListener(e -> invoker.executeCommand(map));
+
     }
 }

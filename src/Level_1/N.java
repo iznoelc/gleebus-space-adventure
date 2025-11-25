@@ -2,10 +2,8 @@ package Level_1;
 
 public class N implements Command{
     @Override
-    public void execute() {
-        System.out.println("Pressed North");
-        //say which way gleebus moved
-        //update map
-
+    public void execute(Map map) {
+        System.out.println("Gleebus is going north.");
+        map.update("up");
     }
 }

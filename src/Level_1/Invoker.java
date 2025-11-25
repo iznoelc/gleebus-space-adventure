@@ -7,7 +7,7 @@ public class Invoker {
         this.command = command;
     }
 
-    public void executeCommand(){
-        command.execute();
+    public void executeCommand(Map map){
+        command.execute(map);
     }
 }
