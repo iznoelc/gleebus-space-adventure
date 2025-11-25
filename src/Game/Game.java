@@ -17,12 +17,10 @@ public class Game extends JFrame {
 
     public Game(){
         //game screen setup
-
         setTitle("Gleebus' Space Adventure");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 720);
         setLocationRelativeTo(null);
-
 
         JPanel startCard = new Start(this);
         JPanel backstoryCard = new Backstory(this);
@@ -44,13 +42,6 @@ public class Game extends JFrame {
         // FOR TESTING ->
         // change "Level3" to WHICHEVER LEVEL YOU WANT TO TEST
         cardLayout.show(cards, "Start");
-
-//        // Output area at bottom
-//        output_area = new JTextArea(5, 50);
-//        output_area.setEditable(false);
-//        output_area.setBorder(BorderFactory.createTitledBorder("Event Output"));
-//        JScrollPane scrollPane = new JScrollPane(output_area);
-
         add(cards);
     }
 

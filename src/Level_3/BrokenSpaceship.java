@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Concrete component of the decorator; the base spaceship to be decorated with components (fixed pieces
- * of the spaceship.
+ * of the spaceship.)
  * @author Izzy Carlson
  */
 public class BrokenSpaceship implements Spaceship {

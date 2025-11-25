@@ -1,12 +1,16 @@
 package Level_3;
 
 import Game.Game;
+import Game.NextCard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Handle JavaSwing set-up for level 3.
+ */
 public class Level_3 extends JPanel {
     private Spaceship gleebusShip = new BrokenSpaceship();
     private Game parent;
@@ -40,7 +44,7 @@ public class Level_3 extends JPanel {
         // set up a button panel for the "repair" button
         JPanel buttonPanel = getButtonJPanel(parent, checkboxPanel);
         buttonPanel.setOpaque(false);
-        buttonPanel.setBounds(0, 320, 850, 100); // position at top
+        buttonPanel.setBounds(0, 290, 850, 100); // position at top
         layeredPane.add(buttonPanel, JLayeredPane.PALETTE_LAYER);
 
         // set up the base component for the decorator (gleebu' broken spaceship)
@@ -51,20 +55,18 @@ public class Level_3 extends JPanel {
         textPanel.setOpaque(false);
         textPanel.setBounds(0, 50, 850,300);
         layeredPane.add(textPanel, JLayeredPane.PALETTE_LAYER);
-
     }
 
     private JPanel getButtonJPanel(JFrame frame, JPanel checkboxPanel) {
         JButton repairButton = new JButton("REPAIR");
-        repairButton.setPreferredSize(new Dimension(100,50));
+        repairButton.setPreferredSize(new Dimension(300,50));
+        repairButton.setFont(new Font("Dialog", Font.BOLD, 18));
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
         repairButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button was clicked!");
-
                 if ((hammer.isSelected() &&  wrench.isSelected() && !screwdriver.isSelected() && !pliers.isSelected())
                         && !screenComponentBuilt){
                     Spaceship screenComponent = new ScreenDecorator(gleebusShip);
@@ -85,7 +87,18 @@ public class Level_3 extends JPanel {
                     leverComponentBuilt = true;
                 }
 
-                parent.getContentPane().repaint();
+                repaint();
+
+                if (screenComponentBuilt && buttonPanelComponentBuilt && leverComponentBuilt){
+                    repairButton.setVisible(false);
+                    NextCard nextCard = new NextCard();
+                    JButton nextLevelButton = nextCard.getNextCardButton(parent, "Fly the Spaceship!", 300, 50, "Level4", 18);
+                    buttonPanel.add(nextLevelButton);
+                    hammer.setEnabled(false);
+                    wrench.setEnabled(false);
+                    screwdriver.setEnabled(false);
+                    pliers.setEnabled(false);
+                }
             }
         });
 
@@ -97,7 +110,7 @@ public class Level_3 extends JPanel {
         JPanel checkboxPanel = new JPanel();
         checkboxPanel.setLayout(new FlowLayout());
 
-        Font checkboxFont = new Font("Arial", Font.PLAIN, 24);
+        Font checkboxFont = new Font("Dialog", Font.PLAIN, 24);
 
         hammer = new JCheckBox("Hammer");
         hammer.setFont(checkboxFont);
@@ -108,19 +121,17 @@ public class Level_3 extends JPanel {
         pliers = new JCheckBox("Pliers");
         pliers.setFont(checkboxFont);
 
-
-
-        checkboxPanel.add(hammer);
-        checkboxPanel.add(wrench);
         checkboxPanel.add(screwdriver);
+        checkboxPanel.add(hammer);
         checkboxPanel.add(pliers);
+        checkboxPanel.add(wrench);
 
         return checkboxPanel;
     }
 
     private JPanel getTextPanel(){
         JLabel title = new JLabel("REPAIR THE SPACESHIP CONTROL PANEL");
-        title.setFont(new Font("Serif", Font.PLAIN, 40));
+        title.setFont(new Font("Dialog", Font.PLAIN, 40));
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
         JLabel descriptionLabel = new JLabel("Some of the control panel components broke in the crash!");
