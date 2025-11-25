@@ -14,65 +14,72 @@ public class Level_1 extends JPanel {
         setLayout(new BorderLayout());
 
         //make map
-        Map map = new Map(10);
-
+        Map map = new Map(5);
 
         //button setup
-        addButton("P1_NorthArrow", "up","N", map);
-        addButton("P1_SouthArrow", "down","S", map);
-        addButton("P1_EastArrow", "right","E", map);
-        addButton("P1_WestArrow", "left","W", map);
+        addButton("P1_NorthArrow", "north", map);
+        addButton("P1_SouthArrow", "south", map);
+        addButton("P1_EastArrow", "east", map);
+        addButton("P1_WestArrow", "west", map);
     }
 
+
+
     //helper method
-    public void addButton(String image,  String position, String debug_message, Map map){
+    public void addButton(String image,  String position, Map map){
+        //setup for triggering commands
         Invoker invoker = new Invoker();
         Command command = null;
-        //make button
-        ImageIcon myImage = new ImageIcon("src/Images/Puzzle1/" + image + ".png");
-        // rescale image
-        Image scaledImage = myImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
-        // Wrap the scaled image back into an ImageIcon
+        //make button with image
+        ImageIcon ButtonImage = new ImageIcon("src/Images/Puzzle1/" + image + ".png");
+        // rescale image
+        Image scaledImage = ButtonImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        // cast image back into a ImageIcon for use after scaling
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         JButton imageButton = new JButton(scaledIcon);
 
-        //define side for positioning
+        //define panel used for positioning
         JPanel Side = new JPanel();
         //adds padding to the side
         Side.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        //position boxes and button
-        if(position.equals("left") || position.equals("right")){
+        //center button
+        if(position.equals("east") || position.equals("west")){
             Side.setLayout(new BoxLayout(Side, BoxLayout.Y_AXIS));
             Side.add(Box.createVerticalGlue());
             Side.add(imageButton);
             Side.add(Box.createVerticalGlue());
-            //position relative to screen side
-            if(position.equals("left")){
+            //place button on correct side (left,right) and define trigger
+            if(position.equals("west")){
                 add(Side, BorderLayout.WEST);
+                command = new W();
             } else{
                 add(Side, BorderLayout.EAST);
+                command = new E();
             }
-        } else if(position == "up" || position == "down"){
+        }
+        //center button
+        else if(position == "north" || position == "south"){
             Side.setLayout(new BoxLayout(Side, BoxLayout.X_AXIS));
             Side.add(Box.createHorizontalGlue());
             Side.add(imageButton);
             Side.add(Box.createHorizontalGlue());
-            //position relative to screen side
-            if(position.equals("up")){
+            //place button on correct side (up,down) and define trigger
+            if(position.equals("north")){
                 add(Side, BorderLayout.NORTH);
                 command = new N();
-
             } else{
                 add(Side, BorderLayout.SOUTH);
+                command = new S();
             }
         }
         else{
-            System.out.println("Error: Invalid Input");
+            System.out.println("Invalid Input");
             return;
         }
+
+        //finalize and activate trigger based on action listener
         invoker.setCommand(command);
         imageButton.addActionListener(e -> invoker.executeCommand(map));
-
     }
 }
