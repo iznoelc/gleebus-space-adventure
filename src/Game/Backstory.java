@@ -55,7 +55,7 @@ public class Backstory extends JPanel {
         JButton nextButton = new JButton("Next");
         nextButton.setPreferredSize(new Dimension(100,50));
         nextButton.setFont(new Font("Dialog", Font.BOLD, 18));
-        JButton skipStoryButton = new NextCard().getNextCardButton(parent, "Skip Story", 200, 50, "Level3", 18);
+        JButton skipStoryButton = new NextCard().getNextCardButton(parent, "Skip Story", 200, 50, "Level1", 18);
 
         nextButton.addActionListener(new ActionListener() {
             @Override
