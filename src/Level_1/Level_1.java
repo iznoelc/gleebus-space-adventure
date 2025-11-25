@@ -3,10 +3,14 @@ package Level_1;
 import Game.Game;
 import javax.swing.*;
 import java.awt.*;
+import Game.NextCard;
 
 public class Level_1 extends JPanel {
     private Game parent;
     private JTextArea statusArea;
+    public boolean ship_found = false;
+    JButton N, S, W, E;
+    JLabel GleebusLabel;
 
     //constructor
     public Level_1(Game parent) {
@@ -17,19 +21,13 @@ public class Level_1 extends JPanel {
         //make map
         Map map = new Map(5);
 
-        //button setup
-        addButton("P1_NorthArrow", "north", map);
-        addButton("P1_SouthArrow", "south", map);
-        addButton("P1_EastArrow", "east", map);
-        addButton("P1_WestArrow", "west", map);
-
         //add Gleebus
         ImageIcon Gleebus = new ImageIcon("src/Images/Puzzle1/P1_Gleebus.png");
         //rescale
         Image scaledGleebus = Gleebus.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledGleebusIcon = new ImageIcon(scaledGleebus);
         //make label to hold him
-        JLabel GleebusLabel = new JLabel(scaledGleebusIcon);
+        GleebusLabel = new JLabel(scaledGleebusIcon);
         //center
         GleebusLabel.setHorizontalAlignment(JLabel.CENTER);
         GleebusLabel.setVerticalAlignment(JLabel.CENTER);
@@ -49,14 +47,43 @@ public class Level_1 extends JPanel {
 
         //add to main panel
         add(centerPanel, BorderLayout.CENTER);
+
+        //button setup
+        this.N = addButton("P1_NorthArrow", "north", map, centerPanel);
+        this.S = addButton("P1_SouthArrow", "south", map, centerPanel);
+        this.E = addButton("P1_EastArrow", "east", map, centerPanel);
+        this.W = addButton("P1_WestArrow", "west", map, centerPanel);
     }
 
 
 
 
 
-    //helper method
-    public void addButton(String image,  String position, Map map){
+    //helper methods
+    public void shipFound(JPanel panel){
+            System.out.println("Ship found and calling images, trying");
+            N.setEnabled(false);
+            S.setEnabled(false);
+            W.setEnabled(false);
+            E.setEnabled(false);
+        //add Gleebus
+        ImageIcon SpaceShip = new ImageIcon("src/Images/Puzzle1/P1_GleebusSpaceship.png");
+        //rescale
+        Image scaledSpaceShip = SpaceShip.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        ImageIcon scaledSpaceShipIcon = new ImageIcon(scaledSpaceShip);
+        //make label to hold it
+        GleebusLabel.setIcon(scaledSpaceShipIcon);
+        //center
+        GleebusLabel.setHorizontalAlignment(JLabel.CENTER);
+        GleebusLabel.setVerticalAlignment(JLabel.CENTER);
+
+        JButton NextLevelButton = new NextCard().getNextCardButton(parent, "Enter Spaceship!", 200, 50, "Level2", 18);
+        panel.add(NextLevelButton, BorderLayout.NORTH);
+
+        repaint();
+    }
+
+    public JButton addButton(String image,  String position, Map map, JPanel panel){
         //setup for triggering commands
         Invoker invoker = new Invoker();
         Command command = null;
@@ -105,7 +132,7 @@ public class Level_1 extends JPanel {
         }
         else{
             System.out.println("Invalid Input");
-            return;
+            return null;
         }
 
         //finalize and activate trigger based on action listener
@@ -116,6 +143,12 @@ public class Level_1 extends JPanel {
             if (statusArea != null) {
                 statusArea.append(result + "\n");
             }
+            if(result.equals("Boiling Hot\nSHIP FOUND!")){
+                ship_found = true;
+                shipFound(panel);
+            }
+
         });
+        return imageButton;
     }
 }
