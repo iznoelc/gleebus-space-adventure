@@ -21,6 +21,19 @@ public class Level_1 extends JPanel {
         addButton("P1_SouthArrow", "south", map);
         addButton("P1_EastArrow", "east", map);
         addButton("P1_WestArrow", "west", map);
+
+        //add Gleebus
+        ImageIcon Gleebus = new ImageIcon("src/Images/Puzzle1/P1_Gleebus.png");
+        //rescale
+        Image scaledGleebus = Gleebus.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon scaledGleebusIcon = new ImageIcon(scaledGleebus);
+        //make label to hold him
+        JLabel GleebusLabel = new JLabel(scaledGleebusIcon);
+        //center
+        GleebusLabel.setHorizontalAlignment(JLabel.CENTER);
+        GleebusLabel.setVerticalAlignment(JLabel.CENTER);
+        //draw it
+        add(GleebusLabel, BorderLayout.CENTER);
     }
 
 
