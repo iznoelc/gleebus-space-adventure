@@ -29,7 +29,7 @@ public class Game extends JFrame {
         JPanel level2 = new Level_2(this);
         JPanel level3 = new Level_3(this);
         JPanel level4 = new Level_4(this);
-        JPanel endCard = new End();
+        JPanel endCard = new End(this);
 
         cards = new JPanel(cardLayout);
         cards.add(startCard, "Start");
