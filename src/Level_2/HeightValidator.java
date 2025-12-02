@@ -1,0 +1,41 @@
+package Level_2;
+
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
+
+public class HeightValidator implements Validator{
+    //attributes
+    private Validator nextValidator;
+
+    //overide validator methods
+    @Override
+    public void setNextValidator(Validator nextValidator){
+        //set next validator
+        this.nextValidator = nextValidator;
+    }
+
+    @Override
+    public void validate(UserRegistration registration) throws ValidationException{
+        //define password to be validated
+        String height = registration.getHeight();
+
+        //if password is not valid (null, less than 8 characters, doesn't have: 1 upper, 1 lower, 1 #) throw error
+        if (!Objects.equals(height, "1'5")){
+
+            // throw a new exception that the email is invalid
+            ArrayList<String> hints = new ArrayList<String>();
+            hints.add("I am shorter than 2'0");
+            hints.add("I am taller than 1'0");
+            hints.add("Both numbers are odd.");
+            hints.add("The second number is not 1, 3,or 9.");
+            Random random = new Random();
+            int hint_num = random.nextInt(hints.toArray().length-1);
+            throw new ValidationException("Uh oh, thats the wrong height, please try again.\n\nHint: " + hints.get(hint_num));
+        }
+        //else pass to the next validator
+        else if (nextValidator != null){
+            nextValidator.validate(registration);
+        }
+    }
+}

@@ -77,7 +77,7 @@ public class Level_1 extends JPanel {
         GleebusLabel.setHorizontalAlignment(JLabel.CENTER);
         GleebusLabel.setVerticalAlignment(JLabel.CENTER);
 
-        JButton NextLevelButton = new NextCard().getNextCardButton(parent, "Enter Spaceship!", 200, 50, "Level2", 18);
+        JButton NextLevelButton = new NextCard().getNextCardButton(parent, "Enter Spaceship!", 200, 50, "L1_to_L2", 18);
         panel.add(NextLevelButton, BorderLayout.NORTH);
 
         repaint();
