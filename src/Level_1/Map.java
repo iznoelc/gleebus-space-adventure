@@ -31,23 +31,24 @@ public class Map {
     }
 
     public String update(String direction){
+        boolean isEdge = false;
         // update player location
         switch (direction) {
             case "west":
                 if (player_position[0] > 0)
-                {player_position[0]-=1;} else {return "Gleebus is too far west, he's no longer getting a status signal from his ship!";}
+                {player_position[0]-=1;} else {isEdge = true;}
                 break;
             case "east":
                 if (player_position[0] < max)
-                {player_position[0]+=1;}else {return "Gleebus is too far east, he's no longer getting a status signal from his ship!";}
+                {player_position[0]+=1;}else {isEdge = true;}
                 break;
             case "north":
                 if (player_position[1] > 0)
-                {player_position[1]-=1;}else {return "Gleebus is too far north, he's no longer getting a status signal from his ship!";}
+                {player_position[1]-=1;}else {isEdge = true;}
                 break;
             case "south":
                 if (player_position[1] < max)
-                {player_position[1]+=1;}else {return "Gleebus is too far south, he's no longer getting a status signal from his ship!";}
+                {player_position[1]+=1;}else {isEdge = true;}
                 break;
         }
 
@@ -56,6 +57,9 @@ public class Map {
             return "Boiling Hot\nSHIP FOUND!";
         }
 
+        if(isEdge == true){
+            return "Gleebus has gone too far in this direction! He is out of the ships range, try heading back the way you came.";
+        }
         String status = "";
 
         // give hot/cold hint based on ship and player position
