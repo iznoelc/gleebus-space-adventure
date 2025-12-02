@@ -172,7 +172,7 @@ public class Level_3 extends JPanel {
 
                     if (spaceship.getVisibility()){
                         Image img = spaceship.getImage();
-                        System.out.println("Image is null? " + (img == null));
+                        //System.out.println("Image is null? " + (img == null));
 
                         g.drawImage(spaceship.getImage(), 0,0, this);
                     }

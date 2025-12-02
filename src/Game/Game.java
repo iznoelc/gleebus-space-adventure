@@ -43,7 +43,7 @@ public class Game extends JFrame {
 
         // FOR TESTING ->
         // change "Level3" to WHICHEVER LEVEL YOU WANT TO TEST
-        cardLayout.show(cards, "Level2");
+        cardLayout.show(cards, "Start");
         add(cards);
     }
 

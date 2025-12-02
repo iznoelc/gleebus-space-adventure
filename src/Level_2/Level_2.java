@@ -108,7 +108,7 @@ private  JButton nextLevelButton;
         gbc.gridy = 6;
         gbc.gridwidth = 2;
         nextLevelButton = new NextCard().getNextCardButton(
-                parent, "<html>That's Correct! <br>Enter Spaceship.<br><font size = 10>(for real this time)", 400, 100, "Level3", 18
+                parent, "<html>That's Correct! <br>Enter Spaceship.<br><font size = 3>(for real this time)", 400, 100, "Level3", 18
         );
         nextLevelButton.setEnabled(false);
         nextLevelButton.setVisible(false);
