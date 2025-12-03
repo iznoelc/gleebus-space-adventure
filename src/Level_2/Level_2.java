@@ -1,26 +1,41 @@
 package Level_2;
 
 import Game.Game;
-
 import Game.NextCard;
-import Level_3.Level_3;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Level_2 extends JPanel {
+
+    // ------------------------------------------------------------
+    //                  Variables
+    // ------------------------------------------------------------
+
     private Game parent;
-private ImageIcon backgroundImage;
-private ImageIcon foregroundImage;
-private  JButton nextLevelButton;
+    private ImageIcon backgroundImage;
+    private ImageIcon foregroundImage;
+    private  JButton nextLevelButton;
+
+    // ------------------------------------------------------------
+    //                  Constructor
+    // ------------------------------------------------------------
+
+    /**
+     *
+     * @param parent
+     */
     public Level_2(Game parent) {
+        // ----------------------
+        //      Setup Screen
+        // ----------------------
+
         this.parent = parent;
-
-        // Load background image once
-         this.backgroundImage = new ImageIcon("src/Images/P1_Screen.png");
-
+        // Load background image
+        this.backgroundImage = new ImageIcon("src/Images/P1_Screen.png");
+        //seperate for more control in overlay transparency in later editing
+        this.foregroundImage = new ImageIcon("src/Images/P1_ScreenOverlay.png");
 
         JTextArea outputArea = new JTextArea(5, 50);
         outputArea.setEditable(false);
@@ -29,21 +44,53 @@ private  JButton nextLevelButton;
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(5, 0, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Added a title for the Frame
+        // ----------------------
+        //      Instructions
+        // ----------------------
+
+        //position
         gbc.gridx = 0;
         gbc.gridy = 0;
-        JLabel title = new JLabel("Security Questions");
+        gbc.anchor = GridBagConstraints.CENTER;
+        //size
+        gbc.gridwidth = 2;
+        //text
+        JLabel instructions= new JLabel("<html><div style='text-align:center'>Uh oh... Gleebus is locked out! And he's forgotten his password.<br>He can reset it with security questions but... he forgot that too. <br><br>Help Gleebus get into his ship by entering the answers!<br><br>");
+        //font type
+        Font mediumFont = new Font("Serif", Font.BOLD, 20);
+        instructions.setFont(mediumFont);
+        //add
+        add(instructions, gbc);
+        //reset for everything else
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+
+        // ----------------------
+        //      Title
+        // ----------------------
+
+        //position
+        gbc.gridy = 1;
+        //text
+        JLabel title = new JLabel("Security Questions: ");
+        //font type
         Font bigFont = new Font("Serif", Font.BOLD, 50);
         title.setFont(bigFont);
-        add(title);
+        //add
+        add(title, gbc);
 
+        // ----------------------
+        //      Questions
+        // ----------------------
 
-        // Add Question 1
+        //done in the same way as the title but with a different font type
+
+        // Question 1
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         JLabel planetLabel = new JLabel("What is the name of Gleebus's home planet?");
         add(planetLabel, gbc);
         JTextField planetField = new JTextField(20);
@@ -55,7 +102,7 @@ private  JButton nextLevelButton;
 
         // Add Question 2
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         JLabel heightLabel = new JLabel("How tall is Gleebus? (use number'number notation)");
         add(heightLabel, gbc);
         JTextField heightField = new JTextField(20);
@@ -66,7 +113,7 @@ private  JButton nextLevelButton;
 
         // Add Question 3
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         JLabel foodLabel = new JLabel("What is Gleebus's favorite earth food?");
         add(foodLabel, gbc);
         foodLabel.setFont(smallFont);
@@ -77,7 +124,7 @@ private  JButton nextLevelButton;
 
         // Add Question 4
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         JLabel jobLabel = new JLabel("What is Gleebus's day job?");
         add(jobLabel, gbc);
         jobLabel.setFont(smallFont);
@@ -86,9 +133,13 @@ private  JButton nextLevelButton;
         gbc.gridx = 1;
         add(jobField, gbc);
 
+        // ----------------------
+        //      Buttons
+        // ----------------------
+
         // Add an Enter button
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         JButton registerButton = new JButton("Check Answers");
         registerButton.setFont(smallFont);
         gbc.gridx = 1;
@@ -99,7 +150,6 @@ private  JButton nextLevelButton;
             public void actionPerformed(ActionEvent e) {
                 // call the registerUser method
                 registerUser(planetField, heightField, foodField, jobField);
-
             }
         });
 
@@ -113,13 +163,17 @@ private  JButton nextLevelButton;
         nextLevelButton.setEnabled(false);
         nextLevelButton.setVisible(false);
         add(nextLevelButton, gbc);
-
-        // Load background image once
-        /// ///last edited here!!!
-        this.foregroundImage = new ImageIcon("src/Images/P1_ScreenOverlay.png");
     }
 
+    // ------------------------------------------------------------
+    //                  Helper Methods
+    // ------------------------------------------------------------
 
+    /**
+     *
+     * @param g the <code>Graphics</code> object to protect
+     * used to set background image of screen
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -128,8 +182,14 @@ private  JButton nextLevelButton;
 
     }
 
-
-// Allows the checks registration
+    /**
+     *
+     * @param planetField
+     * @param heightField
+     * @param foodField
+     * @param jobField
+     */
+        // Allows the checks registration
         public void registerUser(JTextField planetField, JTextField heightField, JTextField foodField, JTextField jobField){
             // create a new JFrame
             JFrame valid = new JFrame("Confirmation");
@@ -153,11 +213,6 @@ private  JButton nextLevelButton;
                 validatorChain.validate(user);
 
                 // if everything is fine
-                //JLabel passed = new JLabel("Your information has been fully validated!");
-                //Font bigFont = new Font("Serif", Font.BOLD, 20);
-                //passed.setFont(bigFont);
-                //valid.add(passed);
-                //valid.setVisible(true);
                 nextLevelButton.setVisible(true);
                 nextLevelButton.setEnabled(true);
 
@@ -171,7 +226,11 @@ private  JButton nextLevelButton;
             }
         }
 
-        public static Validator setUpValidatorChain(){
+    /**
+     *
+     * @return
+     */
+    public static Validator setUpValidatorChain(){
             // creating the validators
             Validator planetValidator = new PlanetValidator();
             Validator heightValidator = new HeightValidator();

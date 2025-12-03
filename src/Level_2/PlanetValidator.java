@@ -5,9 +5,19 @@ import java.util.Objects;
 import java.util.Random;
 
 public class PlanetValidator implements Validator{
-    //attributes
+    // ------------------------------------------------------------
+    //                  Variables
+    // ------------------------------------------------------------
     private Validator nextValidator;
 
+    // ------------------------------------------------------------
+    //                  Methods
+    // ------------------------------------------------------------
+
+    /**
+     *
+     * @param nextValidator
+     */
     //override validator methods
     @Override
     public void setNextValidator(Validator nextValidator){
@@ -15,15 +25,19 @@ public class PlanetValidator implements Validator{
         this.nextValidator = nextValidator;
     }
 
+    /**
+     *
+     * @param registration
+     * @throws ValidationException
+     */
     @Override
     public void validate(UserRegistration registration) throws ValidationException{
         //define username to validate
         String planet = registration.getPlanet();
 
-        // if username is null or less than 5 characters long throw error
+        // validate
         if (!Objects.equals(planet, "Gleebus")){
-
-            // throw a new exception that the email is invalid
+            // throw a new exception that its invalid and add a random hint
             ArrayList<String> hints = new ArrayList<String>();
             hints.add("My name is in the question.");
             hints.add("Many citizens are named after me.");

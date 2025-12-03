@@ -4,17 +4,31 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Map {
-    //variables for constructor
+
+    // ------------------------------------------------------------
+    //                  Variables
+    // ------------------------------------------------------------
+
     int[] player_position;
     int[] ship_position;
     int[][] ship_range;
     int[][] item_positions;
     int max;
+    boolean isEdge;
     Random random = new Random();
 
-    //constructor
+    // ------------------------------------------------------------
+    //                  Constructor
+    // ------------------------------------------------------------
+
+    /**
+     *
+     * @param max
+     * setups position of player, ship, and items
+     */
     Map(int max){
         this.max = max;
+        this.isEdge = false;
         this.player_position = new int[]{max/2, max/2};
         this.ship_position = new int[]{random.nextInt(max+1), random.nextInt(max+1)};
         this.ship_range = new int[][] {
@@ -30,9 +44,22 @@ public class Map {
         };
     }
 
+    // ------------------------------------------------------------
+    //                  Update Method
+    // ------------------------------------------------------------
+
+    /**
+     *
+     * @param direction
+     * @return String
+     * update position and check if Gleebus has found anything
+     */
     public String update(String direction){
-        boolean isEdge = false;
-        // update player location
+        // ----------------------
+        //      Player
+        // ----------------------
+
+        // update player location on map
         switch (direction) {
             case "west":
                 if (player_position[0] > 0)
@@ -52,14 +79,28 @@ public class Map {
                 break;
         }
 
+        // ----------------------
+        //      Spaceship
+        // ----------------------
+
         // check if Gleebus found his spaceship
         if (Arrays.equals(player_position, ship_position)) {
-            return "Boiling Hot\nSHIP FOUND!";
+            return "Location Status: Boiling Hot\nSHIP FOUND!";
         }
+
+        // ----------------------
+        //      Edge
+        // ----------------------
 
         if(isEdge == true){
             return "Gleebus has gone too far in this direction! He is out of the ships range, try heading back the way you came.";
         }
+
+        // ----------------------
+        //      Ship Status
+        // ----------------------
+
+        //status setup
         String status = "";
 
         // give hot/cold hint based on ship and player position
@@ -71,7 +112,11 @@ public class Map {
             }
         }
 
-        // check if Gleebus found any other items, stretch goal
+        // ----------------------
+        //      Item Found?
+        // ----------------------
+
+        // check if Gleebus found any other items
         String[] item_names = {
                 "cat-nip...he'll take that with him.",
                 "comb, pretty but useless against his tangled fur.",
@@ -79,9 +124,14 @@ public class Map {
         };
         for (int[] item : item_positions) {
             if (player_position[0] == item[0] && player_position[1] == item[1]) {
-                status += " Gleebus has stumbled upon his " + item_names[item[2]-1];
+                status += "\nGleebus has stumbled upon his " + item_names[item[2]-1];
             }
         }
+
+        // ----------------------
+        //      Return
+        // ----------------------
+
         return status;
     }
 }

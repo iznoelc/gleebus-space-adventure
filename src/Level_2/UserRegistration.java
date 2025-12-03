@@ -1,13 +1,25 @@
 package Level_2;
 
 public class UserRegistration {
-    //Attributes
+    // ------------------------------------------------------------
+    //                  Variables
+    // ------------------------------------------------------------
     private String planet;
     private String height;
     private String fruit;
     private String job;
 
-    // Constructor
+    // ------------------------------------------------------------
+    //                  Constructor
+    // ------------------------------------------------------------
+
+    /**
+     *
+     * @param planet
+     * @param height
+     * @param fruit
+     * @param job
+     */
     public UserRegistration(String planet, String height, String fruit, String job){
         this.planet = planet;
         this.height = height;
@@ -15,22 +27,38 @@ public class UserRegistration {
         this.job = job;
     }
 
-    // returns the username
+    // ------------------------------------------------------------
+    //                  Getters
+    // ------------------------------------------------------------
+
+    /**
+     *
+     * @return String
+     */
     public String getPlanet(){
         return planet;
     }
 
-    // returns the password
+    /**
+     *
+     * @return String
+     */
     public String getHeight(){
         return height;
     }
 
-    // returns the email
+    /**
+     *
+     * @return String
+     */
     public String getFruit(){
         return fruit;
     }
 
-    // returns the phone number
+    /**
+     *
+     * @return String
+     */
     public String getJob(){
         return job;
     }

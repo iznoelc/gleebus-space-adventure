@@ -5,9 +5,19 @@ import java.util.Objects;
 import java.util.Random;
 
 public class HeightValidator implements Validator{
-    //attributes
+    // ------------------------------------------------------------
+    //                  Variables
+    // ------------------------------------------------------------
     private Validator nextValidator;
 
+    // ------------------------------------------------------------
+    //                  Methods
+    // ------------------------------------------------------------
+
+    /**
+     *
+     * @param nextValidator
+     */
     //overide validator methods
     @Override
     public void setNextValidator(Validator nextValidator){
@@ -15,15 +25,19 @@ public class HeightValidator implements Validator{
         this.nextValidator = nextValidator;
     }
 
+    /**
+     *
+     * @param registration
+     * @throws ValidationException
+     */
     @Override
     public void validate(UserRegistration registration) throws ValidationException{
         //define password to be validated
         String height = registration.getHeight();
 
-        //if password is not valid (null, less than 8 characters, doesn't have: 1 upper, 1 lower, 1 #) throw error
+        //validate
         if (!Objects.equals(height, "1'5")){
-
-            // throw a new exception that the email is invalid
+            // throw a new exception that it is invalid and include random hint
             ArrayList<String> hints = new ArrayList<String>();
             hints.add("I am shorter than 2'0");
             hints.add("I am taller than 1'0");
