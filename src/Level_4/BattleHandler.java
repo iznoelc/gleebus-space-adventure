@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class BattleHandler extends JPanel {
-    private static final int MAX_ENEMIES = 2;
+    private static final int MAX_ENEMIES = 3;
     private Game parent;
     private JButton attack, rest, guard, ability;
     private JPanel gleebusHealthPanel, alienHealthPanel, actionButtonPanel;
@@ -136,27 +136,10 @@ public class BattleHandler extends JPanel {
     }
 
     private void gleebusTurn(){
-        attack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                attackerHelper();
-            }
-        });
-
-        rest.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { restHelper(); }
-        });
-
-        guard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { guardHelper(); }
-        });
-
-        ability.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { abilityHelper(); }
-        });
+        attack.addActionListener(e -> attackerHelper());
+        rest.addActionListener(e -> restHelper());
+        guard.addActionListener(e -> guardHelper());
+        ability.addActionListener(e -> abilityHelper());
     }
 
     private void enemyTurn(boolean takeTurn){
@@ -171,6 +154,12 @@ public class BattleHandler extends JPanel {
                     } else {
                         gleebus.takeDamage(currentEnemy.getAttackDamage());
                         displayMessage.setText("Gleebus took " + currentEnemy.getAttackDamage() + " damage from the enemy!");
+                        if (gleebus.getCurrentHealth() <= 0){
+                            // game over
+                            resetBattle();
+                            parent.getCardLayout().show(parent.getCards(), "GameOver");
+                            return;
+                        }
                     }
 
 
@@ -270,19 +259,16 @@ public class BattleHandler extends JPanel {
     }
 
     private void attackerHelper(){
-        System.out.println("Attacking enemy");
         int atk = gleebus.attack();
         displayMessage.setText("Gleebus attacked the current enemy for " + atk + " damage.");
         this.currentEnemy.takeDamage(atk);
         System.out.println("New enemy health " + currentEnemy.getHealth());
         if (this.currentEnemy.getHealth() <= 0){
             totalEnemiesKilled++;
-            System.out.println("Enemies killed: " + totalEnemiesKilled);
             if (totalEnemiesKilled == MAX_ENEMIES){
                 endLevel();
                 return;
             }
-
             spawnEnemy();
         } else {
             enemyTurn(true);
@@ -292,12 +278,12 @@ public class BattleHandler extends JPanel {
         repaint();
     }
 
-    private void spawnEnemy(){
+    private void spawnEnemy() {
         // don't spawn the same enemy twice in a row
-        int spawnNum = r.nextInt(3) + 1;
-        while (spawnNum == prevEnemy){
+        int spawnNum;
+        do {
             spawnNum = r.nextInt(3) + 1;
-        }
+        } while (spawnNum == prevEnemy);
 
         prevEnemy = spawnNum;
         this.currentEnemy = sef.spawnEnemy(spawnNum);
@@ -324,6 +310,18 @@ public class BattleHandler extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    public void resetBattle(){
+        totalEnemiesKilled = 0;
+        gleebus.resetHealth();
+        System.out.println("Gleebus health after reset: " + gleebus.getCurrentHealth());
+        spawnEnemy();
+        drawHealth(gleebusHealthPanel,alienHealthPanel);
+
+        for (JButton button : actionButtons){
+            button.setEnabled(true);
+        }
     }
 
     private class DrawPanel extends JPanel {

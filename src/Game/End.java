@@ -40,12 +40,7 @@ public class End extends JPanel {
         endGameButton.setFont(new Font("Dialog", Font.PLAIN, 24));
         endGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        endGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        endGameButton.addActionListener(e -> System.exit(0));
 
         endComponentPanel.add(endGameButton);
 

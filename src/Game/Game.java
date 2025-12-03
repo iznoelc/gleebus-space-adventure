@@ -30,6 +30,7 @@ public class Game extends JFrame {
         JPanel level3 = new Level_3(this);
         JPanel level4 = new Level_4(this);
         JPanel endCard = new End(this);
+        JPanel gameOverCard = new GameOver(this);
 
         cards = new JPanel(cardLayout);
         cards.add(startCard, "Start");
@@ -40,6 +41,7 @@ public class Game extends JFrame {
         cards.add(level3, "Level3");
         cards.add(level4, "Level4");
         cards.add(endCard, "End");
+        cards.add(gameOverCard, "GameOver");
 
         // FOR TESTING ->
         // change "Level3" to WHICHEVER LEVEL YOU WANT TO TEST
