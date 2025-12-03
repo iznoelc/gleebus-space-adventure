@@ -12,16 +12,21 @@ import java.util.ArrayList;
 
 public class BattleHandler extends JPanel {
     private static final int MAX_ENEMIES = 5;
+    private static final double SUCCESS_RATE = 0.07;
+    private static final double FAIL_RATE = 0.96;
+
     private Game parent;
-    private JButton attack, rest, guard, ability;
-    private JPanel gleebusHealthPanel, alienHealthPanel, actionButtonPanel;
-    private JLabel displayMessage;
     private Gleebus gleebus;
     private SpaceEnemy currentEnemy;
     private SpaceEnemyFactory sef = new SpaceEnemyFactory();
+
+    private JButton attack, rest, guard, ability;
+    private JPanel gleebusHealthPanel, alienHealthPanel, actionButtonPanel;
+    private JLabel displayMessage;
+
     private Random r = new Random();
-    private int prevEnemy, totalEnemiesKilled;
     private ArrayList<JButton> actionButtons;
+    private int prevEnemy, totalEnemiesKilled;
     private boolean endBattle = false;
 
     public BattleHandler(Game parent, Gleebus gleebus){
@@ -66,8 +71,15 @@ public class BattleHandler extends JPanel {
         messagePanel.add(displayMessage);
         layeredPane.add(messagePanel, JLayeredPane.PALETTE_LAYER);
 
-        gleebusTurn();
         repaint();
+    }
+
+    public void resetBattle(){
+        totalEnemiesKilled = 0;
+        gleebus.resetHealth();
+        spawnEnemy();
+        enableAllActionButtons();
+        drawHealth(gleebusHealthPanel,alienHealthPanel);
     }
 
     private JPanel setUpActionButtons(){
@@ -95,10 +107,12 @@ public class BattleHandler extends JPanel {
         ability.setPreferredSize(actionButtonDimension);
         actionButtons.add(ability);
 
-        for (JButton button : actionButtons){
-            actionButtonPanel.add(button);
-        }
+        attack.addActionListener(e -> attackerHelper());
+        rest.addActionListener(e -> restHelper());
+        guard.addActionListener(e -> guardHelper());
+        ability.addActionListener(e -> abilityHelper(SUCCESS_RATE, FAIL_RATE));
 
+        for (JButton button : actionButtons){ actionButtonPanel.add(button); }
         actionButtonPanel.setOpaque(false);
         return actionButtonPanel;
     }
@@ -135,19 +149,11 @@ public class BattleHandler extends JPanel {
         alienHealthPanel.repaint();
     }
 
-    private void gleebusTurn(){
-        attack.addActionListener(e -> attackerHelper());
-        rest.addActionListener(e -> restHelper());
-        guard.addActionListener(e -> guardHelper());
-        ability.addActionListener(e -> abilityHelper());
-    }
-
     private void enemyTurn(boolean takeTurn){
         ActionListener enemyTurn = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (takeTurn) {
                     double chance = r.nextDouble();
-
                     // gleebus has about a 5% chance to dodge the attack
                     if (chance < 0.05) {
                         displayMessage.setText("Gleebus was able to dodge the enemies attack!");
@@ -185,11 +191,10 @@ public class BattleHandler extends JPanel {
     }
 
     private void guardHelper(){
-        // guard is effective about 95% of the time
         double chance = r.nextDouble();
         if (chance < 0.95){
             displayMessage.setText("Gleebus successfully guarded against the enemy's attack! He takes no damage.");
-            enemyTurn(false);
+            enemyTurn(false); // simulate enemy taking turn (for game flow with the timer) but don't actually do any damage
         } else {
             displayMessage.setText("Gleebus' guard efforts failed!");
             enemyTurn(true);
@@ -204,39 +209,34 @@ public class BattleHandler extends JPanel {
         displayMessage.setText("Gleebus rested and healed for " + amnt + " health points!");
         drawHealth(gleebusHealthPanel,alienHealthPanel);
         enemyTurn(true);
+
         revalidate();
         repaint();
     }
 
-    private void abilityHelper(){
+    private void abilityHelper(double successRate, double failRate){
         double chance = r.nextDouble();
-        //double chance = 0.02;
         ActionListener abilityListener = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                if (chance <= 0.96 && chance >= 0.03){
-                    // gleebus fails to use his ability but it doesnt backfire
+            public void actionPerformed(ActionEvent e) {
+                if (chance <= FAIL_RATE && chance >= SUCCESS_RATE){
+                    // gleebus fails to use his ability, but it doesn't backfire, so he attacks normally
                     attackerHelper();
-//                    for (JButton button : actionButtons){
-//                        button.setEnabled(true);
-//                    }
-                } else if (chance < 0.03) {
-                    // gleebus uses his ability
+                } else if (chance < SUCCESS_RATE) {
+                    // gleebus uses his ability, so the enemy is instantly killed a new one must be spawned
                     spawnEnemy();
                     revalidate();
                     repaint();
                 } else {
-                    // gleebus ability backfires
+                    // gleebus ability backfires, so enemy should take a turn after gleebus takes damage
                     enemyTurn(true);
                 }
             }
         };
 
-        // RARE chance for gleebus to use an instakill ability
-        // BUT also a rare chance for it to backfire
-        if (chance < 0.03) {
+        if (chance < SUCCESS_RATE) {
             currentEnemy.takeDamage(currentEnemy.getHealth());
             displayMessage.setText("[RARE] Gleebus used his special ability and instantly killed the enemy!");
-        } else if (chance > 0.96) {
+        } else if (chance > FAIL_RATE) {
             displayMessage.setText("[RARE] Gleebus' ability BACKFIRES and he took damage instead!");
             gleebus.takeDamage(3);
             drawHealth(gleebusHealthPanel, alienHealthPanel);
@@ -245,15 +245,13 @@ public class BattleHandler extends JPanel {
         } else {
             displayMessage.setText("Gleebus failed to use his ability and attacks normally.");
         }
+        disableAllActionButtons();
 
-        for (JButton button : actionButtons){
-            button.setEnabled(false);
-        }
-
-        int delay = 2000;
+        int delay = 1500; // 1.5-second delay, slightly faster than enemy turn
         Timer t = new Timer(delay, abilityListener);
         t.setRepeats(false);
         t.start();
+
         revalidate();
         repaint();
     }
@@ -262,7 +260,8 @@ public class BattleHandler extends JPanel {
         int atk = gleebus.attack();
         displayMessage.setText("Gleebus attacked the current enemy for " + atk + " damage.");
         this.currentEnemy.takeDamage(atk);
-        System.out.println("New enemy health " + currentEnemy.getHealth());
+
+        // when an enemy is killed, spawn a new one or end level if total number of enemies needed are killed
         if (this.currentEnemy.getHealth() <= 0){
             totalEnemiesKilled++;
             if (totalEnemiesKilled == MAX_ENEMIES){
@@ -279,7 +278,7 @@ public class BattleHandler extends JPanel {
     }
 
     private void spawnEnemy() {
-        // don't spawn the same enemy twice in a row
+        // don't spawn the same kind enemy twice in a row
         int spawnNum;
         do {
             spawnNum = r.nextInt(3) + 1;
@@ -312,17 +311,9 @@ public class BattleHandler extends JPanel {
         repaint();
     }
 
-    public void resetBattle(){
-        totalEnemiesKilled = 0;
-        gleebus.resetHealth();
-        System.out.println("Gleebus health after reset: " + gleebus.getCurrentHealth());
-        spawnEnemy();
-        drawHealth(gleebusHealthPanel,alienHealthPanel);
+    private void enableAllActionButtons(){ for (JButton button : actionButtons){ button.setEnabled(true); } }
 
-        for (JButton button : actionButtons){
-            button.setEnabled(true);
-        }
-    }
+    private void disableAllActionButtons(){ for (JButton button : actionButtons){ button.setEnabled(false); } }
 
     private class DrawPanel extends JPanel {
         protected void paintComponent(Graphics g) {
@@ -333,5 +324,4 @@ public class BattleHandler extends JPanel {
             }
         }
     }
-
 }
