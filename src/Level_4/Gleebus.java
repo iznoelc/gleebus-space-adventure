@@ -12,7 +12,7 @@ public class Gleebus {
     Image image;
 
     public Gleebus(int attackDamageUpperBound){
-        this.maxHealth = 5;
+        this.maxHealth = 10;
         this.currentHealth = this.maxHealth;
         this.attackDamageUpperBound = attackDamageUpperBound;
         this.alive = true;

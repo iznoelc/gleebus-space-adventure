@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class BattleHandler extends JPanel {
-    private static final int MAX_ENEMIES = 3;
+    private static final int MAX_ENEMIES = 5;
     private Game parent;
     private JButton attack, rest, guard, ability;
     private JPanel gleebusHealthPanel, alienHealthPanel, actionButtonPanel;
