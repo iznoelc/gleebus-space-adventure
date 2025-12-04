@@ -83,7 +83,7 @@ public class Map {
         //      Spaceship
         // ----------------------
 
-        // check if Gleebus found his spaceship
+        // check if Gleebus has found his spaceship
         if (Arrays.equals(player_position, ship_position)) {
             return "Location Status: Boiling Hot\nSHIP FOUND!";
         }

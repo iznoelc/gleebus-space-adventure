@@ -35,7 +35,7 @@ public class PlanetValidator implements Validator{
         //define username to validate
         String planet = registration.getPlanet();
 
-        // validate
+        // validate name
         if (!Objects.equals(planet, "Gleebus")){
             // throw a new exception that its invalid and add a random hint
             ArrayList<String> hints = new ArrayList<String>();

@@ -51,7 +51,7 @@ public class Level_2 extends JPanel {
         //      Instructions
         // ----------------------
 
-        //position
+        //positioning
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;

@@ -115,7 +115,7 @@ public class Level_1 extends JPanel {
      * @param map
      * @param panel
      * @return JButton
-     * a helper button to make the directional buttons
+     * a helper method to make the directional buttons
      */
     public JButton addButton(String image,  String position, Map map, JPanel panel){
 

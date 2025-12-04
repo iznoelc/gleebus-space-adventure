@@ -39,7 +39,7 @@ public class JobValidator implements Validator{
                nextValidator.validate(registration);
             }
         }
-        // else pass to next validator
+        // pass to next validator
         else {
             // throw a new exception that it is invalid, plus a random hint
             ArrayList<String> hints = new ArrayList<String>();
