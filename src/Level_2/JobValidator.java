@@ -3,6 +3,11 @@ package Level_2;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * checks that the job security question is answered mechanic before passing to the next validator
+ * gives hints when the user answers incorrectly
+ * @author Esperanza Paulino
+ */
 public class JobValidator implements Validator{
     // ------------------------------------------------------------
     //                  Variables

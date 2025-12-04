@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * checks that the planet name security question is answered Gleebus before passing to the next validator
+ * gives hints when the user answers incorrectly
+ * @author Esperanza Paulino
+ */
 public class PlanetValidator implements Validator{
     // ------------------------------------------------------------
     //                  Variables

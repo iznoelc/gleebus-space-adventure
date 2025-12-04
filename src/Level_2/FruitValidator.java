@@ -3,6 +3,11 @@ package Level_2;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * checks that the favorite food security question is answered banana before passing to the next validator
+ * gives hints when the user answers incorrectly
+ * @author Esperanza Paulino
+ */
 public class FruitValidator implements Validator{
     // ------------------------------------------------------------
     //                  Variables

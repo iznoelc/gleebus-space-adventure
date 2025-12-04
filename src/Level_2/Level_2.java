@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Handles the JavaSwing setup for level 2
+ * @author Esperanza Paulino
+ */
 public class Level_2 extends JPanel {
 
     // ------------------------------------------------------------

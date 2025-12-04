@@ -1,5 +1,9 @@
 package Level_1;
 
+/**
+ * Command for moving west (tell which direction player is headed, update map, get relevant location information)
+ * @author Esperanza Paulino
+ */
 public class W implements Command{
     /**
      * @param map

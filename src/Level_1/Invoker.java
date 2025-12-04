@@ -1,5 +1,9 @@
 package Level_1;
 
+/**
+ * invoker, can be used to set and trigger any command (N,S,E,W)
+ * @author Esperanza Paulino
+ */
 public class Invoker {
     //variables
     Command command;

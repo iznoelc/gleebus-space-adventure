@@ -3,6 +3,10 @@ package Level_1;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * coordinate (x and y) based map using 2D and 1D arrays for item and player positioning
+ * @author Esperanza Paulino
+ */
 public class Map {
 
     // ------------------------------------------------------------

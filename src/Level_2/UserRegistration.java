@@ -1,5 +1,9 @@
 package Level_2;
 
+/**
+ * sets variables for user input so that they can be run through the validation chain
+ * @author Esperanza Paulino
+ */
 public class UserRegistration {
     // ------------------------------------------------------------
     //                  Variables

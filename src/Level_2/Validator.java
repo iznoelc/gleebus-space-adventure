@@ -1,5 +1,8 @@
 package Level_2;
 
+/**
+ * validator influence that each security question implements
+ */
 public interface Validator {
     /**
      *

@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * checks that the height security question is answered 1'5 before passing to the next validator
+ * gives hints when the user answers incorrectly
+ * @author Esperanza Paulino
+ */
 public class HeightValidator implements Validator{
     // ------------------------------------------------------------
     //                  Variables

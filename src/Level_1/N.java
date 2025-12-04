@@ -2,6 +2,10 @@ package Level_1;
 
 import javax.swing.*;
 
+/**
+ * Command for moving north (tell which direction player is headed, update map, get relevant location information)
+ * @author Esperanza Paulino
+ */
 public class N implements Command{
     /**
      * @param map

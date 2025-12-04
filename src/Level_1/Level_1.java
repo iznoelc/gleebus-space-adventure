@@ -5,6 +5,10 @@ import javax.swing.*;
 import java.awt.*;
 import Game.NextCard;
 
+/**
+ * Handles JavaSwing for Level 1.
+ * @author Esperanza Paulino
+ */
 public class Level_1 extends JPanel {
     // ------------------------------------------------------------
     //                  Variables
