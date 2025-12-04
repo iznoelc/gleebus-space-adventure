@@ -32,9 +32,10 @@ public class FruitValidator implements Validator{
     public void validate(UserRegistration registration) throws ValidationException{
         String fruit = registration.getFruit();
 
-        if (fruit.equals("bananas") || fruit.equals("Bananas") || fruit.equals("banana") || fruit.equals("Banana")
-        && nextValidator != null){
-            nextValidator.validate(registration);
+        if (fruit.equals("bananas") || fruit.equals("Bananas") || fruit.equals("banana") || fruit.equals("Banana")){
+            if(nextValidator != null) {
+                nextValidator.validate(registration);
+            }
         }
         // else pass to the next validator
         else {

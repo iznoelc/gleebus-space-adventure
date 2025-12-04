@@ -93,8 +93,11 @@ public class Map {
         // ----------------------
 
         if(isEdge == true){
+            //reset for next time
+            isEdge = false;
             return "Gleebus has gone too far in this direction! He is out of the ships range, try heading back the way you came.";
         }
+
 
         // ----------------------
         //      Ship Status

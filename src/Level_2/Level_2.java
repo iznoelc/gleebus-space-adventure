@@ -103,7 +103,7 @@ public class Level_2 extends JPanel {
         // Add Question 2
         gbc.gridx = 0;
         gbc.gridy = 3;
-        JLabel heightLabel = new JLabel("How tall is Gleebus? (use number'number notation)");
+        JLabel heightLabel = new JLabel("How tall is Gleebus? (use #'# notation)");
         add(heightLabel, gbc);
         JTextField heightField = new JTextField(20);
         heightLabel.setFont(smallFont);
