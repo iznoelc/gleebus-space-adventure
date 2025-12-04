@@ -18,18 +18,21 @@ public class ButtonPanelDecorator extends SpaceshipDecorator {
         this.visibility = false;
     }
 
+    /**
+     * @return The button panel's image
+     */
     @Override
-    public Image getImage() {
-        return this.image;
-    }
+    public Image getImage() { return this.image; }
 
+    /**
+     * @param visibility to set for the button panel
+     */
     @Override
-    public void setVisible(boolean visibility) {
-        this.visibility = visibility;
-    }
+    public void setVisible(boolean visibility) { this.visibility = visibility; }
 
+    /**
+     * @return The current visibility of the button panel
+     */
     @Override
-    public boolean getVisibility() {
-        return this.visibility;
-    }
+    public boolean getVisibility() { return this.visibility; }
 }

@@ -18,16 +18,21 @@ public class ScreenDecorator extends SpaceshipDecorator {
         this.visibility = false;
     }
 
+    /**
+     * @return The screen's image
+     */
     @Override
-    public Image getImage() {
-        return this.image;
-    }
+    public Image getImage() { return this.image; }
 
+    /**
+     * @param visibility The visibility to set the screen to
+     */
     @Override
-    public void setVisible(boolean visibility) {
-        this.visibility = visibility;
-    }
+    public void setVisible(boolean visibility) { this.visibility = visibility; }
 
+    /**
+     * @return The current visibility of the screen
+     */
     @Override
     public boolean getVisibility() {
         return this.visibility;

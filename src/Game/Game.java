@@ -5,23 +5,34 @@ import Level_2.Level_2;
 import Level_3.Level_3;
 import Level_4.Level_4;
 
-import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Main JFrame that utilizes a card layout to cycle through each level.
+ * @author Izzy Carlson
+ * @author Esperanza Paulino
+ */
 public class Game extends JFrame {
-    //variables for screen
-    private JTextArea output_area;
     CardLayout cardLayout = new CardLayout();
     JPanel cards;
 
+    /**
+     * Constructor to initialize JFrame and a card layout to hold each level as well as start, backstory, game over,
+     * and end cards.
+     */
     public Game(){
-        //game screen setup
+        // set up the frame
         setTitle("Gleebus' Space Adventure");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 720);
         setLocationRelativeTo(null);
 
+        // set frame icon
+        ImageIcon frameIcon = new ImageIcon("src/Images/IconNoOutline.png");
+        setIconImage(frameIcon.getImage());
+
+        // initialize all level panels and then add them to the card layout
         JPanel startCard = new Start(this);
         JPanel backstoryCard = new Backstory(this);
         JPanel level1 = new Level_1(this);
@@ -41,20 +52,25 @@ public class Game extends JFrame {
         cards.add(endCard, "End");
         cards.add(gameOverCard, "GameOver");
 
-        // FOR TESTING ->
-        // change "Level3" to WHICHEVER LEVEL YOU WANT TO TEST
+        // set first card shown to the start screen
         cardLayout.show(cards, "Start");
         add(cards);
     }
 
-    public CardLayout getCardLayout(){
-        return this.cardLayout;
-    }
+    /**
+     * @return The frame's card layout
+     */
+    public CardLayout getCardLayout(){ return this.cardLayout; }
 
-    public JPanel getCards(){
-        return this.cards;
-    }
+    /**
+     * @return The cards in the frame's card layout
+     */
+    public JPanel getCards(){ return this.cards; }
 
+    /**
+     * Main method to start the game and set the frame to visible
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
