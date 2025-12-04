@@ -1,16 +1,19 @@
 package Game;
 
 import javax.swing.*;
-import Game.Game;
-import Level_4.BattleHandler;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ * Handles JavaSwing setup for the ending card.
+ * @author Izzy Carlson
+ */
 public class End extends JPanel {
-    Game parent;
+    private Game parent;
 
+    /**
+     * Constructor to handle all component set up for the ending card
+     * @param parent The parent JFrame that ending should be added to
+     */
     public End(Game parent){
         this.parent = parent;
         setLayout(new BorderLayout());
@@ -25,7 +28,7 @@ public class End extends JPanel {
         drawingPanel.setBounds(0,0,1280,720);
         layeredPane.add(drawingPanel, JLayeredPane.DEFAULT_LAYER);
 
-        //
+        // sets up the panel and text for the title announcing gleebus' arrival home
         JPanel endComponentPanel = new JPanel();
         endComponentPanel.setLayout(new BoxLayout(endComponentPanel, BoxLayout.Y_AXIS));
         JLabel endText = new JLabel("★ GLEEBUS HAS RETURNED HOME! ★");
@@ -35,20 +38,18 @@ public class End extends JPanel {
         endComponentPanel.setBounds(0,0,1280,100);
         endComponentPanel.setOpaque(false);
 
+        // set up exit button
         JButton endGameButton = new JButton("EXIT");
         endGameButton.setPreferredSize(new Dimension(150, 50));
         endGameButton.setFont(new Font("Dialog", Font.PLAIN, 24));
         endGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        endGameButton.addActionListener(e -> System.exit(0));
-
+        endGameButton.addActionListener(e -> System.exit(0)); // add listener that closes window when exit button is pressed
         endComponentPanel.add(endGameButton);
-
         layeredPane.add(endComponentPanel, JLayeredPane.PALETTE_LAYER);
     }
 
     /**
-     * Handles drawing the logo.
+     * Handles drawing the ending screen image of Gleebus on his home planet
      */
     private class DrawPanel extends JPanel {
         protected void paintComponent(Graphics g) {

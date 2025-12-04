@@ -1,34 +1,39 @@
 package Game;
 
-import Level_3.Level_3;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.Iterator;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Sets up and handles the backstory "level" progression.
+ * @author Izzy Carlson
+ */
 public class Backstory extends JPanel {
-    JFrame parent;
+    private Game parent;
     private LinkedList<Image> backstoryImages;
     private LinkedList<String> backstoryText;
     private Image imageToDraw;
 
+    /**
+     * Constructor to initialize and set up backstory components
+     * @param parent The parent JFrame that the backstory should be added to
+     */
     public Backstory(Game parent){
         this.parent = parent;
         this.backstoryImages = setUpBackstoryImages();
         this.backstoryText = setUpBackstoryText();
+        setLayout(new BorderLayout());
 
+        // use an iterator to iterate over the backstory images, and store current image--i.e. the image that should
+        // be drawn--in a separate variable
         Iterator<Image> imageIterator = backstoryImages.iterator();
         Iterator<String> textIterator = backstoryText.iterator();
         this.imageToDraw = imageIterator.next();
 
-        setLayout(new BorderLayout());
-
-        // use a layered pane since we need to layer buttons, checkboxes, etc. over drawings
-        // set up the layered pane
+        // use a layered pane to store all components
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(1280,720));
         add(layeredPane, BorderLayout.CENTER);
@@ -38,9 +43,7 @@ public class Backstory extends JPanel {
         drawingPanel.setBounds(0,0,1280,720);
         layeredPane.add(drawingPanel, JLayeredPane.DEFAULT_LAYER);
 
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new FlowLayout());
-
+        // set up a panel and label to hold the story text
         JPanel storyPanel = new JPanel();
         storyPanel.setLayout(new FlowLayout());
         storyPanel.setBounds(0,500,1280,720);
@@ -51,7 +54,9 @@ public class Backstory extends JPanel {
         storyPanel.add(storyLabel);
         layeredPane.add(storyPanel, JLayeredPane.PALETTE_LAYER);
 
-
+        // set up a buttons panel to hold skip story and next buttons to be able to move through the backstory
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new FlowLayout());
         JButton nextButton = new JButton("Next");
         nextButton.setPreferredSize(new Dimension(100,50));
         nextButton.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -91,6 +96,10 @@ public class Backstory extends JPanel {
         buttonsPanel.add(nextButton);
     }
 
+    /**
+     * A helper function to add all backstory images to a LinkedList
+     * @return The linked list of backstory images
+     */
     private LinkedList<Image> setUpBackstoryImages(){
         LinkedList<Image> backstoryImages = new LinkedList<>();
 
@@ -103,6 +112,10 @@ public class Backstory extends JPanel {
         return backstoryImages;
     }
 
+    /**
+     * A helper function to add all backstory text to a LinkedList
+     * @return The linked list of backstory text
+     */
     private LinkedList<String> setUpBackstoryText(){
         LinkedList<String> backstoryText = new LinkedList<>();
 
@@ -124,6 +137,9 @@ public class Backstory extends JPanel {
         return backstoryText;
     }
 
+    /**
+     * Private class to draw the image components to the frame
+     */
     private class DrawPanel extends JPanel {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);

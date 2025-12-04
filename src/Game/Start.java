@@ -7,6 +7,10 @@ package Game;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Handles the JavaSwing set up for the start card
+ * @author Izzy Carlson
+ */
 public class Start extends JPanel {
     JFrame parent;
 

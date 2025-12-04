@@ -9,7 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Class to provide helpers for moving throughout cards in the game's card layout
+ * @author Izzy Carlson
+ */
 public class NextCard {
     /**
      * Creates a button that, when clicked, moves to the next specified card.
