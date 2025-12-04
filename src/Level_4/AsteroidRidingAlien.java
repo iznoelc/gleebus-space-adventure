@@ -3,12 +3,22 @@ package Level_4;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Concrete SpaceEnemy implementation of an asteroid riding space enemy.
+ * @author Izzy Carlson
+ */
 public class AsteroidRidingAlien implements SpaceEnemy {
     int health;
     int attackDamage;
-    String spawnText;
-    Image image;
+    private String spawnText;
+    private Image image;
 
+    /**
+     * Constructor to initialize the asteroid riding space enemy. Ensures health and attack damage are valid.
+     * @param health Total health space enemy should have
+     * @param attackDamage Total attack damage space enemy should have
+     * @param spawnText Text that should display when a space enemy of this kind spawns
+     */
     public AsteroidRidingAlien(int health, int attackDamage, String spawnText){
         // ensure valid health value
         if (health <= 10 && health > 0){
@@ -28,6 +38,20 @@ public class AsteroidRidingAlien implements SpaceEnemy {
         this.image = new ImageIcon("src/Images/Puzzle4/P4_AsteroidAlien.png").getImage();
     }
 
+    /**
+     * Take a specified amount of damage; if health goes below zero, explicitly set it to zero
+     * @param amount of damage to be taken
+     */
+    @Override
+    public void takeDamage(int amount) {
+        this.health -= amount;
+        if (this.health < 0){ this.health = 0; }
+    }
+
+    // ------------------------------------------------------------
+    //           Getters, see SpaceEnemy for details
+    // ------------------------------------------------------------
+
     @Override
     public Image getImage(){ return this.image; }
 
@@ -44,14 +68,5 @@ public class AsteroidRidingAlien implements SpaceEnemy {
     @Override
     public String getSpawnText() {
         return this.spawnText;
-    }
-
-    @Override
-    public void takeDamage(int amount) {
-        this.health -= amount;
-
-        if (this.health < 0){
-            this.health = 0;
-        }
     }
 }

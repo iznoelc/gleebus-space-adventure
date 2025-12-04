@@ -18,18 +18,21 @@ public class LeverDecorator extends SpaceshipDecorator {
         this.visibility = false;
     }
 
+    /**
+     * @return The lever's image
+     */
     @Override
-    public Image getImage() {
-        return this.image;
-    }
+    public Image getImage() { return this.image; }
 
+    /**
+     * @param visibility Sets the current visibility of the lever
+     */
     @Override
-    public void setVisible(boolean visibility) {
-        this.visibility = visibility;
-    }
+    public void setVisible(boolean visibility) { this.visibility = visibility; }
 
+    /**
+     * @return The current visibility of the lever
+     */
     @Override
-    public boolean getVisibility() {
-        return this.visibility;
-    }
+    public boolean getVisibility() { return this.visibility; }
 }

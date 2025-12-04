@@ -2,6 +2,10 @@ package Level_4;
 
 import java.util.Random;
 
+/**
+ * Implements the factory pattern to handle instantiation of space enemies by returning new SpaceEnemy objects.
+ * @author Izzy Carlson
+ */
 public class SpaceEnemyFactory {
     public SpaceEnemy spawnEnemy(int type){
         String spawnText = "";
