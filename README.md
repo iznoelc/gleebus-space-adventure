@@ -3,10 +3,10 @@ This project aims to implement **four object-oriented design patterns** in *Java
 
 ## Brief Overview of Patterns
 ### Level 1 -> Command
-about command here
+Level 1 lets the player move Gleebus around a 5x5 map using directional arrow buttons. The goal is for Gleebus to find his spaceship. Each button is a product of the Command pattern which tells the user which direction Gleebus moved in, if he's found the spaceship (or any other items), and hints at how close the ship is on a cold to hot scale.
 
 ### Level 2 -> Chain of Responsibility (COR)
-about cor here
+Level 2 simulates Gleebus' spaceship password system as it asks security questions. Chain of Responsibility was used for the validators(handlers) since the information had to pass a multi-level authentication system. As an add on hints are randomly generated when the user recieves an error.
 
 ### Level 3 -> Decorator
 Level 3 allows the player to repair Gleebus' spaceship. Decorator was used because we needed a base component (the broken spaceship) and a way to "decorate" this base component (repairs, such as the lever and button panel). 
