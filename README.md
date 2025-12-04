@@ -32,9 +32,9 @@ Level 4 aims to create a short turn-based combat system. Instantiation and creat
 - All Gleebus asset art found in src/[Images](https://github.com/iznoelc/GleebusSpaceAdventure/tree/main/src/Images) folder done by Izzy Carlson
 
 #### Fonts Used
-- (Alien Space)[https://www.1001fonts.com/alien-font.html]
-- (Alien Dot)[https://www.dafont.com/aliendot.font]
-- (Astroz)[https://www.dafont.com/astroz.font]
+- [Alien Space](https://www.1001fonts.com/alien-font.html)
+- [Alien Dot](https://www.dafont.com/aliendot.font)
+- [Astroz](https://www.dafont.com/astroz.font)
 
 ## Demo
-See the demo (here)[] on YouTube
+See the demo [here]() on YouTube
