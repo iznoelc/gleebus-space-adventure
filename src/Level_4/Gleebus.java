@@ -21,7 +21,7 @@ public class Gleebus {
      * @param attackDamageUpperBound The maximum amount of damage Gleebus should be able to do in one turn
      */
     public Gleebus(int maxHealth, int attackDamageUpperBound){
-        this.maxHealth = 10;
+        this.maxHealth = maxHealth;
         this.currentHealth = this.maxHealth;
         this.attackDamageUpperBound = attackDamageUpperBound;
         this.image = new ImageIcon("src/Images/Puzzle4/P4_GleebusInHisShipModded.png").getImage();
