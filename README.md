@@ -1,6 +1,9 @@
 # Gleebus' Space Adventure
 This project aims to implement **four object-oriented design patterns** in *Java* to support the core functionality of a short text-based story game, with the components being created and displayed in *JavaSwing*. The game follows *Gleebus*, a cat-like alien creature who crash landed on Earth. He's spent some time on the planet, but now he's ready to go home! The player will help him find his spaceship, repair it, and then battle enemies, all with the goal of getting Gleebus home!
 
+## Demo
+See the demo [here](https://www.youtube.com/watch?v=u01gnLfvYys) on YouTube
+
 ## Brief Overview of Patterns
 ### Level 1 -> Command
 Level 1 lets the player move Gleebus around a 5x5 map using directional arrow buttons. The goal is for Gleebus to find his spaceship. Each button is a product of the Command pattern which tells the user which direction Gleebus moved in, if he's found the spaceship (or any other items), and hints at how close the ship is on a cold to hot scale.
@@ -35,6 +38,3 @@ Level 4 aims to create a short turn-based combat system. Instantiation and creat
 - [Alien Space](https://www.1001fonts.com/alien-font.html)
 - [Alien Dot](https://www.dafont.com/aliendot.font)
 - [Astroz](https://www.dafont.com/astroz.font)
-
-## Demo
-See the demo [here](https://www.youtube.com/watch?v=u01gnLfvYys) on YouTube
